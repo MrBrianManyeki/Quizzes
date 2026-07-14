@@ -236,19 +236,19 @@ async function sendAnswers() {
   btn.disabled = true;
   btn.textContent = "⏳ Sending...";
   try {
-    const res = await fetch("https://formsubmit.co/ajax/" + TEACHER_EMAIL, {
+    const res = await fetch("https://api.web3forms.com/submit", {
       method: "POST",
       headers: { "Content-Type": "application/json", "Accept": "application/json" },
       body: JSON.stringify({
-        _captcha: "false",
-        _template: "box",
-        _subject: "Year 3 Coding Part A — " + name,
+        access_key: "5ac907e9-6012-4d97-959d-842ce02bb373",
+        subject: "Year 3 Coding Part A — " + name,
+        from_name: name,
         name: name,
-        answers: buildAnswerText(name)
+        message: buildAnswerText(name)
       })
     });
     const data = await res.json().catch(() => ({}));
-    if (!res.ok || String(data.success) === "false") throw new Error("send failed");
+    if (!res.ok || data.success !== true) throw new Error("send failed");
     document.getElementById("done-msg").style.display = "block";
     document.getElementById("fallback-box").style.display = "none";
     btn.textContent = "✅ Sent!";
