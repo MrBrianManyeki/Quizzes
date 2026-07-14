@@ -113,6 +113,7 @@
       <button class="big" style="background:#4a90d9" onclick="mailtoAnswers()">✉️ Open Email App</button>
       <button class="big" style="background:#8e6cc0" onclick="saveAnswers()">💾 Save Answers File</button>
       <p style="font-size:.9em">Ask a grown-up to help send the email or attach the saved file.</p>
+      <p id="debug-info" style="font-size:.75em; color:#888; word-break:break-all;"></p>
     </div>
   </div>
 </div>
@@ -256,6 +257,8 @@ async function sendAnswers() {
     btn.disabled = false;
     btn.textContent = "📤 Send to My Teacher";
     document.getElementById("fallback-box").style.display = "block";
+    var dbg = document.getElementById("debug-info");
+    if (dbg) dbg.textContent = "Error details (show your teacher): v3-web3forms | " + (e && e.message ? e.message : String(e));
   }
 }
 
